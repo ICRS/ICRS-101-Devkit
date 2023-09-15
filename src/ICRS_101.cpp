@@ -1,7 +1,7 @@
 #include "ICRS_101.h"
 #include "Arduino.h"
 #include "Wire.h"
-#include "ICRS_101_Analog.h"
+#include "workaround.h"
 
 /*  */
 uint8_t resolution = 8;
