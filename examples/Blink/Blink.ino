@@ -1,6 +1,4 @@
-#include "ICRS_101.h"
-
-/* Program to blink the built in LED once per second */
+/* Program to blink the built-in LED once per second */
 
 /* the setup function runs once when you press reset or power the board */
 void setup() {

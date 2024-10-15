@@ -1,25 +1,34 @@
-#include "ICRS_101.h"
+/*  Example to show the motor interface. Spins motors forward for 1 second and stops motors for 1 second. */
 
-/**
-  Example to show the motor interface. Spins motors forward for 1 second and stops motors for 1 second.
-*/
+#define MOTOR_LEFT_1 35
+#define MOTOR_LEFT_2 33
+#define MOTOR_RIGHT_1 39
+#define MOTOR_RIGHT_2 37
 
+/* The setup function runs once when you press reset or power the board */
 void setup() {
-  // put your setup code here, to run once:
-  digitalWrite(MOTOR1_DIR, LOW);
-  digitalWrite(MOTOR2_DIR, LOW);
+  
+  /* Set motor pins as outputs */
+  pinMode(MOTOR_LEFT_1, OUTPUT);
+  pinMode(MOTOR_LEFT_2, OUTPUT);
+  pinMode(MOTOR_RIGHT_1, OUTPUT);
+  pinMode(MOTOR_RIGHT_2, OUTPUT);
 
-  digitalWrite(MOTOR1_EN, LOW);
-  digitalWrite(MOTOR2_EN, LOW);
+  /* Set motor pins to a known state */
+  digitalWrite(MOTOR_LEFT_1, LOW);
+  digitalWrite(MOTOR_LEFT_2, LOW);
+  digitalWrite(MOTOR_RIGHT_1, LOW);
+  digitalWrite(MOTOR_RIGHT_2, LOW);
 }
 
+/* The loop function runs repeatedly */
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(MOTOR1_EN, HIGH);
-  digitalWrite(MOTOR2_EN, HIGH);
-  delay(1000);
-  digitalWrite(MOTOR1_EN, LOW);
-  digitalWrite(MOTOR2_EN, LOW);
+
+  digitalWrite(MOTOR_LEFT_1, HIGH);
+  digitalWrite(MOTOR_RIGHT_1, HIGH);
   delay(1000);
 
+  digitalWrite(MOTOR_LEFT_1, LOW);
+  digitalWrite(MOTOR_RIGHT_1, LOW);
+  delay(1000);
 }

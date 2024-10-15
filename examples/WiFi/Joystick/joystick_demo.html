@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=600, initial-scale=1.0, user-scalable=yes">
+    <style>
+        #drag {
+            position: absolute;
+        }
+        #fix {
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="fix" >
+            <svg height="500" width="500">
+            <circle cx="250" cy="250" r="250" fill="rgb(230,230,230)" stroke="black" stroke-width="1" id="circle2"/>
+            Sorry, your browser does not support inline SVG.  
+            </svg> 
+        </div>
+        <div id="drag">
+        <svg height="100" width="100">
+            <circle cx="50" cy="50" r="49" fill="white" stroke="black" stroke-width="2" />
+            Sorry, your browser does not support inline SVG.  
+        </svg>
+        </div>
+    </div>
+</body>
+<script>
+    var leftval = window.innerWidth/ 2 -50, topval = window.innerHeight/ 2 -100;
+    document.getElementById("drag").style.top = topval +"px";
+    document.getElementById("drag").style.left = leftval + "px";
+    document.getElementById("fix").style.top = topval - 200 + "px";
+    document.getElementById("fix").style.left = leftval - 200 + "px";
+    var magnitude = 0, angle = 0;
+    dragElement(document.getElementById("drag"));
+    function SendUrl(mag, ang){
+        console.log(mag, ang);
+        fetch(`[${mag},${ang}]`, {method: 'POST'});
+    }
+    function dragElement(elmnt) {
+    var pos3 = 0, pos4 = 0, mag = 0, send;
+    elmnt.ontouchstart = dragMouseDown;
+    elmnt.onmousedown = dragMouseDown;
+    function dragMouseDown(e) {
+        send = setInterval(function () { SendUrl(magnitude, angle); }, 100);
+        document.ontouchmove = elementDragTouch;
+        document.ontouchend = closeDragElement;
+        document.onmousemove = elementDrag;
+        document.onmouseup = closeDragElement;
+    }
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        mag = Math.sqrt((pos3 - (50+leftval)) ** 2 + (pos4 - (50+topval)) ** 2)       
+        var ang = Math.atan2((pos3-(50+leftval)),-(pos4-(50+topval))) * 180 / Math.PI;
+        if (mag > 200) {
+            elmnt.style.top = topval + (pos4 - (50 + topval)) * (200 / mag) + "px";
+            elmnt.style.left = leftval + (pos3 - (50 + leftval)) * (200 / mag) + "px"; 
+            mag = 200;
+        }
+        else{
+            elmnt.style.top = (pos4 - 50) + "px";
+            elmnt.style.left = (pos3- 50) + "px"; //elmnt.offsetLeft - pos1
+        }
+        magnitude = mag / 2;
+        angle = ang;
+        return (pos3, pos4);
+    }
+    function elementDragTouch(e) {
+        pos3 = Math.floor(e.touches[0].clientX);
+        pos4 = Math.floor(e.touches[0].clientY);
+        mag = Math.sqrt((pos3 - (50 + leftval)) ** 2 + (pos4 - (50 + topval)) ** 2) //determine distance from centre mouse is at
+        var ang = Math.atan2((pos3 - (50 + leftval)), -(pos4 - (50 + topval))) * 180 / Math.PI; //This is used to determine the motor's individual power for turning/direction
+        if (mag > 200) {
+            elmnt.style.top = topval + (pos4 - (50 + topval)) * (200 / mag) + "px";
+            elmnt.style.left = leftval + (pos3 - (50 + leftval)) * (200 / mag) + "px";
+            mag = 200;
+        }
+        else {
+            elmnt.style.top = (pos4 - 50) + "px";
+            elmnt.style.left = (pos3 - 50) + "px";
+        }
+        magnitude = mag / 2;
+        angle = ang;
+        return (pos3, pos4);
+        }
+        function closeDragElement(e) {
+            document.ontouchmove = null;
+            document.ontouchend = null;
+            document.onmouseup = null;
+            document.onmousemove = null;
+            elmnt.style.top =  topval + "px";
+            elmnt.style.left = leftval + "px";
+            SendUrl(0,0);
+            clearInterval(send);
+            SendUrl(0,0);
+        }
+    }
+</script>
+
+</html>
