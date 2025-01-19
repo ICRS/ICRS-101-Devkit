@@ -22,7 +22,7 @@ void setup() {
   // Initialize Dabble with a Bluetooth name (please change this to something unique)
   Dabble.begin("Robot");
 
-  pinMode(right1Pin1, OUTPUT);
+  pinMode(rightPin1, OUTPUT);
   pinMode(rightPin2, OUTPUT);
   pinMode(leftPin1, OUTPUT);
   pinMode(leftPin2, OUTPUT);
@@ -57,7 +57,7 @@ void loop() {
 // Functions to control the motors
 void moveForward() {
   Serial.println("Moving Forward");
-  digitalWrite(right1Pin1, HIGH);
+  digitalWrite(rightPin1, HIGH);
   digitalWrite(rightPin2, LOW);
   digitalWrite(leftPin1, HIGH);
   digitalWrite(leftPin2, LOW);
@@ -65,7 +65,7 @@ void moveForward() {
 
 void moveBackward() {
   Serial.println("Moving Backward");
-  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin1, LOW);
   digitalWrite(rightPin2, HIGH);
   digitalWrite(leftPin1, LOW);
   digitalWrite(leftPin2, HIGH);
@@ -73,7 +73,7 @@ void moveBackward() {
 
 void turnRight() {
   Serial.println("Turning Right");
-  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin1, LOW);
   digitalWrite(rightPin2, HIGH);
   digitalWrite(leftPin1, HIGH);
   digitalWrite(leftPin2, LOW);
@@ -81,7 +81,7 @@ void turnRight() {
 
 void turnLeft() {
   Serial.println("Turning Left");
-  digitalWrite(right1Pin1, HIGH);
+  digitalWrite(rightPin1, HIGH);
   digitalWrite(rightPin2, LOW);
   digitalWrite(leftPin1, LOW);
   digitalWrite(leftPin2, HIGH);
