@@ -3,13 +3,16 @@
 /* the setup function runs once when you press reset or power the board */
 void setup() {
   
-  /* Initialise the baud rate */
-  Serial.begin(9600);
+  /* initialise the baud rate */
+  Serial.begin(115200);
+
+  // waits for 1000 milliseconds
   delay(1000);
 
   Serial.println("Hello World");
 }
 
+/* this function repeats on loop*/
 void loop() {
   Serial.println("Hi!");
   delay(1000);

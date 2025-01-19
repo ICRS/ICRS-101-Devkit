@@ -1,14 +1,19 @@
 // Must use a pre 3.0.0 version of the ESP32 board manager to use the DabbleESP32 library
 
+// Challenge: implement joystick controls for the robot
+
 #define CUSTOM_SETTINGS
 #define INCLUDE_GAMEPAD_MODULE
 #include <DabbleESP32.h>
 
-// Motor pins for L298N
-#define MOTOR1_IN1 5 // Direction 1 for Motor 1
-#define MOTOR1_IN2 6 // Direction 2 for Motor 1
-#define MOTOR2_IN3 7 // Direction 1 for Motor 2
-#define MOTOR2_IN4 8 // Direction 2 for Motor 2
+// Motor right pins
+const int rightPin1 = 5;
+const int rightPin2 = 6;
+
+// Motor left pins
+const int leftPin1 = 7;
+const int leftPin2 = 8;
+
 
 void setup() {
   // Initialize serial communication
@@ -17,11 +22,10 @@ void setup() {
   // Initialize Dabble with a Bluetooth name (please change this to something unique)
   Dabble.begin("Robot");
 
-  // Set motor pins as output
-  pinMode(MOTOR1_IN1, OUTPUT);
-  pinMode(MOTOR1_IN2, OUTPUT);
-  pinMode(MOTOR2_IN3, OUTPUT);
-  pinMode(MOTOR2_IN4, OUTPUT);
+  pinMode(right1Pin1, OUTPUT);
+  pinMode(rightPin2, OUTPUT);
+  pinMode(leftPin1, OUTPUT);
+  pinMode(leftPin2, OUTPUT);
 }
 
 void loop() {
@@ -29,42 +33,64 @@ void loop() {
   Dabble.processInput();
 
   // Stop motors by default
-  digitalWrite(MOTOR1_IN1, LOW);
-  digitalWrite(MOTOR1_IN2, LOW);
-  digitalWrite(MOTOR2_IN3, LOW);
-  digitalWrite(MOTOR2_IN4, LOW);
+  stopMotors();
 
   // Gamepad directional controls
   if (GamePad.isUpPressed()) {
-    // Move forward
-    digitalWrite(MOTOR1_IN1, HIGH);
-    digitalWrite(MOTOR1_IN2, LOW);
-    digitalWrite(MOTOR2_IN3, HIGH);
-    digitalWrite(MOTOR2_IN4, LOW);
+    moveForward();
   } 
   else if (GamePad.isDownPressed()) {
-    // Move backward
-    digitalWrite(MOTOR1_IN1, LOW);
-    digitalWrite(MOTOR1_IN2, HIGH);
-    digitalWrite(MOTOR2_IN3, LOW);
-    digitalWrite(MOTOR2_IN4, HIGH);
+    moveBackward();
   } 
   else if (GamePad.isLeftPressed()) {
-    // Turn left
-    digitalWrite(MOTOR1_IN1, HIGH);
-    digitalWrite(MOTOR1_IN2, LOW);
-    digitalWrite(MOTOR2_IN3, LOW);
-    digitalWrite(MOTOR2_IN4, HIGH);
+    turnLeft();
   } 
   else if (GamePad.isRightPressed()) {
-    // Turn right
-    digitalWrite(MOTOR1_IN1, LOW);
-    digitalWrite(MOTOR1_IN2, HIGH);
-    digitalWrite(MOTOR2_IN3, HIGH);
-    digitalWrite(MOTOR2_IN4, LOW);
+    turnRight();
   }
 
-  // Joystick controls (not implemented)
+  // Joystick controls (extenstion implement yourself)
   float x_axis = GamePad.getXaxisData();
   float y_axis = GamePad.getYaxisData();
+}
+
+// Functions to control the motors
+void moveForward() {
+  Serial.println("Moving Forward");
+  digitalWrite(right1Pin1, HIGH);
+  digitalWrite(rightPin2, LOW);
+  digitalWrite(leftPin1, HIGH);
+  digitalWrite(leftPin2, LOW);
+}
+
+void moveBackward() {
+  Serial.println("Moving Backward");
+  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin2, HIGH);
+  digitalWrite(leftPin1, LOW);
+  digitalWrite(leftPin2, HIGH);
+}
+
+void turnRight() {
+  Serial.println("Turning Right");
+  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin2, HIGH);
+  digitalWrite(leftPin1, HIGH);
+  digitalWrite(leftPin2, LOW);
+}
+
+void turnLeft() {
+  Serial.println("Turning Left");
+  digitalWrite(right1Pin1, HIGH);
+  digitalWrite(rightPin2, LOW);
+  digitalWrite(leftPin1, LOW);
+  digitalWrite(leftPin2, HIGH);
+}
+
+void stopMotors() {
+  Serial.println("Stopping Motors");
+  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin2, LOW);
+  digitalWrite(leftPin1, LOW);
+  digitalWrite(leftPin2, LOW);
 }
