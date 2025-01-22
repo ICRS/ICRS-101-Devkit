@@ -7,12 +7,12 @@
 #include <DabbleESP32.h>
 
 // Motor right pins
-const int rightPin1 = 5;
-const int rightPin2 = 6;
+const int rightPin1 = 4;
+const int rightPin2 = 3;
 
 // Motor left pins
-const int leftPin1 = 7;
-const int leftPin2 = 8;
+const int leftPin1 = 2;
+const int leftPin2 = 1;
 
 
 void setup() {
