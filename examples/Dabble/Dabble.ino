@@ -37,21 +37,22 @@ void loop() {
 
   // Gamepad directional controls
   if (GamePad.isUpPressed()) {
-    moveForward();
+    moveForward(255);
   } 
   else if (GamePad.isDownPressed()) {
-    moveBackward();
+    moveBackward(255);
   } 
   else if (GamePad.isLeftPressed()) {
-    turnLeft();
+    turnLeft(255);
   } 
   else if (GamePad.isRightPressed()) {
-    turnRight();
+    turnRight(255);
   }
-
-  // Joystick controls (extenstion implement yourself)
-  float x_axis = GamePad.getXaxisData();
-  float y_axis = GamePad.getYaxisData();
+  else {
+    // Joystick controls (extenstion implement yourself)
+    float x_axis = GamePad.getXaxisData();
+    float y_axis = GamePad.getYaxisData();
+  }
 }
 
 // Functions to control the motors
