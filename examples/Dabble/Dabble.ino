@@ -20,8 +20,9 @@ void setup() {
   Serial.begin(115200);
 
   // Initialize Dabble with a Bluetooth name (please change this to something unique)
-  Dabble.begin("Robot");
+  Dabble.begin("101 Robot");
 
+  // Set motor pins as outputs
   pinMode(rightPin1, OUTPUT);
   pinMode(rightPin2, OUTPUT);
   pinMode(leftPin1, OUTPUT);
@@ -37,16 +38,16 @@ void loop() {
 
   // Gamepad directional controls
   if (GamePad.isUpPressed()) {
-    moveForward(255);
+    moveForward();
   } 
   else if (GamePad.isDownPressed()) {
-    moveBackward(255);
+    moveBackward();
   } 
   else if (GamePad.isLeftPressed()) {
-    turnLeft(255);
+    turnLeft();
   } 
   else if (GamePad.isRightPressed()) {
-    turnRight(255);
+    turnRight();
   }
   else {
     // Joystick controls (extenstion implement yourself)
@@ -90,7 +91,7 @@ void turnLeft() {
 
 void stopMotors() {
   Serial.println("Stopping Motors");
-  digitalWrite(right1Pin1, LOW);
+  digitalWrite(rightPin1, LOW);
   digitalWrite(rightPin2, LOW);
   digitalWrite(leftPin1, LOW);
   digitalWrite(leftPin2, LOW);
