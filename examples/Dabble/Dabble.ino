@@ -20,7 +20,7 @@ void setup() {
   Serial.begin(115200);
 
   // Initialize Dabble with a Bluetooth name (please change this to something unique)
-  Dabble.begin("101 Robot");
+  Dabble.begin("RENAME ME");
 
   // Set motor pins as outputs
   pinMode(rightPin1, OUTPUT);
